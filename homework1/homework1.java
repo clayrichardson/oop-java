@@ -1,76 +1,91 @@
 import java.io.*;
+import java.util.*;
 
 
 class Homework1 {
 
-    public interface CubeVolume {
-        double volume();
-    }
-    public interface ConeVolume {
-        double volume();
-    }
-    public interface CylinderVolume {
-        double volume();
+    public interface Properties {
+        double PI = Math.PI;
+        class Length {
+            double unit = 0;
+        }
+        class Width {
+            double unit = 0;
+        }
+        class Height {
+            double unit = 0;
+        }
+        class Radius {
+            double unit = 0;
+        }
+        class Volume {
+            double unit = 0;
+        }
     }
 
-    static class Cube implements CubeVolume {
-        double length;
-        double width;
-        double height;
-        double volume;
+    static class Cube implements Properties {
+        Length length = new Length();
+        Width width = new Width();
+        Height height = new Height();
 
         Cube(double cubeLength, double cubeWidth, double cubeHeight) {
-            length = cubeLength;
-            width = cubeWidth;
-            height = cubeHeight;
+            length.unit = cubeLength;
+            width.unit = cubeWidth;
+            height.unit = cubeHeight;
         }
 
-        public double volume() {
-            System.out.println(length);
-            System.out.println(width);
-            System.out.println(height);
-            volume = length * width * height;
+        public Properties.Volume volume() {
+            Volume volume = new Volume();
+            System.out.println(length.unit);
+            //System.out.println(width);
+            //System.out.println(height);
+            volume.unit = length.unit * width.unit * height.unit;
             return volume;
         }
     }
 
-    static class Cone implements ConeVolume {
-        double radius;
-        double height;
-        double volume;
-
+    static class Cone implements Properties {
+        Radius radius = new Radius();
+        Height height = new Height();
+ 
         Cone(double coneRadius, double coneHeight) {
-            radius = coneRadius;
-            height = coneHeight;
+            radius.unit = coneRadius;
+            height.unit = coneHeight;
         }
 
         public double volume() {
-            volume = (Math.pow(radius,2) * Math.PI * height) / 3;
-            return volume;
+            Volume volume = new Volume();
+            volume.unit = (Math.pow(radius.unit,2) * PI * height.unit) / 3;
+            return volume.unit;
         }
     }
 
-    static class Cylinder implements CylinderVolume {
-        double radius;
-        double height;
-        double volume;
+    static class Cylinder implements Properties {
+        Radius radius = new Radius();
+        Height height = new Height();
 
         Cylinder(double cylinderRadius, double cylinderHeight) {
-            radius = cylinderRadius;
-            height = cylinderHeight;
+            radius.unit = cylinderRadius;
+            height.unit = cylinderHeight;
         }
 
         public double volume() {
-            volume = Math.pow(radius,2) * Math.PI * height;
-            return volume;
+            Volume volume = new Volume();
+            volume.unit = Math.pow(radius.unit,2) * PI * height.unit;
+            return volume.unit;
         }
     }
 
-    public static String queryInput(String[] questions) {
+    public static Map<String, Map<Class<?>, String>> query_input(Map<String, Class<?>> queries) {
 
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        String inputEntered = null;
+        Map<String, Map<Class<?>, String>> inputEntered = new HashMap<String, Map<Class<?>, String>>();
 
+        for(Map.Entry<String, Class<?>> query : queries.entrySet()) {
+            System.out.printf("Key, Value is: %s, %s%n", query.getKey(), query.getValue());
+        }
+
+/*
         try {
             inputEntered = in.readLine();
         } catch (IOException ioe) {
@@ -79,6 +94,7 @@ class Homework1 {
         }
 
         System.out.println("Thanks for your shit: " + inputEntered);
+*/
 
         return inputEntered;
 
@@ -86,9 +102,13 @@ class Homework1 {
 
     public static void main(String[] args) {
 
+        Map<String, Class<?>> cube_questions = new HashMap<String, Class<?>>();
+        cube_questions.put("I am 11, and what is this?", Properties.Length.class);
+
+        Map<String, Map<Class<?>, String>> result = query_input(cube_questions);
 
         Cube box = new Cube(2, 2, 2);
-        double box_volume = box.volume();
+        Properties.Volume box_volume = box.volume();
         System.out.println(box_volume);
         
     }

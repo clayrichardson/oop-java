@@ -1,22 +1,48 @@
+import java.io.*;
+
 
 class Homework1 {
 
-    static class Cube {
+    public interface CubeVolume {
+        double volume();
+    }
+    public interface ConeVolume {
+        double volume();
+    }
+    public interface CylinderVolume {
+        double volume();
+    }
+
+    static class Cube implements CubeVolume {
         double length;
         double width;
         double height;
         double volume;
 
+        Cube(double cubeLength, double cubeWidth, double cubeHeight) {
+            length = cubeLength;
+            width = cubeWidth;
+            height = cubeHeight;
+        }
+
         public double volume() {
+            System.out.println(length);
+            System.out.println(width);
+            System.out.println(height);
             volume = length * width * height;
             return volume;
         }
     }
 
-    static class Cone {
+    static class Cone implements ConeVolume {
         double radius;
         double height;
         double volume;
+
+        Cone(double coneRadius, double coneHeight) {
+            radius = coneRadius;
+            height = coneHeight;
+        }
 
         public double volume() {
             volume = (Math.pow(radius,2) * Math.PI * height) / 3;
@@ -24,19 +50,50 @@ class Homework1 {
         }
     }
 
-    static class Cylinder {
+    static class Cylinder implements CylinderVolume {
         double radius;
         double height;
         double volume;
+
+        Cylinder(double cylinderRadius, double cylinderHeight) {
+            radius = cylinderRadius;
+            height = cylinderHeight;
+        }
 
         public double volume() {
             volume = Math.pow(radius,2) * Math.PI * height;
             return volume;
         }
-   }
+    }
+
+    public static String queryInput(String[] questions) {
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        String inputEntered = null;
+
+        try {
+            inputEntered = in.readLine();
+        } catch (IOException ioe) {
+            System.out.println("IO Error trying to read your shit!");
+            System.exit(1);
+        }
+
+        System.out.println("Thanks for your shit: " + inputEntered);
+
+        return inputEntered;
+
+    }
 
     public static void main(String[] args) {
 
+
+        Cube box = new Cube(2, 2, 2);
+        double box_volume = box.volume();
+        System.out.println(box_volume);
+        
+    }
+
+/*
         Cube box = new Cube();
         box.length = 2;
         box.width = 2;
@@ -55,8 +112,8 @@ class Homework1 {
         rod.height = 2;
         double rod_volume = rod.volume();
         System.out.println(rod_volume);
+*/
 
-    }
 
         
 

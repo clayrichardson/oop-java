@@ -88,12 +88,16 @@ class Homework1 {
         Map<String, Map<Class<?>, String>> inputEntered = new HashMap<String, Map<Class<?>, String>>();
 
         for(Map.Entry<String, Class<?>> query : queries.entrySet()) {
-            System.out.printf("Key, Value is: %s, %s%n", query.getKey(), query.getValue());
+            String queryAsked = query.getKey();
+            Class<?> queryClass = query.getValue();
+            
+            System.out.printf("Key, Value is: %s, %s%n", queryAsked, queryClass);
             Class<?> expectedClass = query.getValue();
             if (expectedClass == Properties.Length.class) {
                 try {
-                    Double inputDouble = Double.parseDouble(in.readLine());
-                    // I'm about done here. I'm on NyQuil and tired, I'll finish this later.
+                    Map<Class<?>, String> nestedMap = new HashMap<Class<?>, String>();
+                    nestedMap.put(queryClass, in.readLine().toString());
+                    inputEntered.put(queryAsked, nestedMap);
                 } catch (IOException ioe) {
                     System.out.println("IO Error trying to read your shit.");
                 }
